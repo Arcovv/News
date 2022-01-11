@@ -4,7 +4,7 @@ import News
 import RxTest
 import RxSwift
 
-class NewsTests: XCTestCase {
+class NewsViewModelTests: XCTestCase {
     var viewModel: NewsViewModelType!
     var scheduler: TestScheduler!
     var disposeBag: DisposeBag!
@@ -29,17 +29,15 @@ class NewsTests: XCTestCase {
         let news = scheduler.createObserver([News].self)
         
         viewModel.outputs.news
-            .emit(to: news)
+            .drive(news)
             .disposed(by: disposeBag)
         
         viewModel.inputs.viewDidLoad.accept(())
         
-        // Only emit one next event
-        XCTAssertEqual(news.events.count, 1)
+        // First is [], then emit news
+        XCTAssertEqual(news.events.count, 2)
         
-        let newsCount = news.events
-            .flatMap { event in event.value.element! }
-            .count
-        XCTAssertEqual(newsCount, 2)
+        let newsCount = news.events.map { event in event.value.element!.count }
+        XCTAssertEqual(newsCount, [0, 2])
     }
 }

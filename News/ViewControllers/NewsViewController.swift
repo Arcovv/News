@@ -25,7 +25,7 @@ final class NewsViewController: UITableViewController {
         self.tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: "NewsTableViewCell")
         
         viewModel.outputs.news
-            .emit(onNext: { [weak self] news in
+            .drive(onNext: { [weak self] news in
                 guard let self = self else { return }
 
                 self.news = news

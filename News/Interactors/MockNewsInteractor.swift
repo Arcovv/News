@@ -1,11 +1,17 @@
 import Foundation
+import RxSwift
 
 public final class MockNewsInteractor: NewsInteractorType {
-    public init () {
-        
+    public var news: Observable<[News]> {
+        return newsSubject.asObservable()
     }
     
-    public func fetchNews(completion: @escaping ([News]) -> Void) {
+    private let newsSubject = BehaviorSubject<[News]>(value: [])
+
+    public init () {
+    }
+    
+    public func fetchNews() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         
@@ -26,6 +32,6 @@ public final class MockNewsInteractor: NewsInteractorType {
         news2.content = "Sonoma County is banning large gatherings anything over 50 people indoors or 100 outdoors and recommending that all residents shelter in place and avoid contact with those outside their households ov… [+2954 chars]"
         
         let items = [news1, news2]
-        completion(items)
+        newsSubject.onNext(items)
     }
 }

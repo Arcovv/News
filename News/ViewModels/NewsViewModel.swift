@@ -8,7 +8,7 @@ public protocol NewsViewModelInputs {
 }
 
 public protocol NewsViewModelOutputs {
-    var news: Signal<[News]> { get }
+    var news: Driver<[News]> { get }
 }
 
 public protocol NewsViewModelType {
@@ -35,10 +35,12 @@ public final class NewsViewModel :
     
     // MARK: - Outputs
     
-    public var news: Signal<[News]> {
-        return _newsSubject.asSignal(onErrorJustReturn: [])
+    public var news: Driver<[News]> {
+        return interactor
+            .news
+            .distinctUntilChanged()
+            .asDriver(onErrorJustReturn: [])
     }
-    private let _newsSubject = PublishSubject<[News]>()
     
     // MARK: - Init
     
@@ -52,10 +54,8 @@ public final class NewsViewModel :
         self.viewDidLoad = viewDidLoad
         
         viewDidLoad
-            .subscribe(onNext: { [unowned interactor, self] _ in
-                interactor.fetchNews { news in
-                    self._newsSubject.onNext(news)
-                }
+            .subscribe(onNext: { [unowned interactor] _ in
+                interactor.fetchNews()
             })
             .disposed(by: disposeBag)
         
