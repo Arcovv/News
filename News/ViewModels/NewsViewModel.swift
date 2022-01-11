@@ -2,21 +2,21 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol NewsViewModelInputs {
+public protocol NewsViewModelInputs {
     var viewDidLoad: PublishRelay<()> { get }
     var didTapNews: PublishRelay<News> { get }
 }
 
-protocol NewsViewModelOutputs {
+public protocol NewsViewModelOutputs {
     var news: Signal<[News]> { get }
 }
 
-protocol NewsViewModelType {
+public protocol NewsViewModelType {
     var inputs: NewsViewModelInputs { get }
     var outputs: NewsViewModelOutputs { get }
 }
 
-final class NewsViewModel :
+public final class NewsViewModel :
     NewsViewModelInputs,
     NewsViewModelOutputs,
     NewsViewModelType
@@ -25,24 +25,24 @@ final class NewsViewModel :
     let interactor: NewsInteractorType
     let disposeBag = DisposeBag()
     
-    var inputs: NewsViewModelInputs { return self }
-    var outputs: NewsViewModelOutputs { return self }
+    public var inputs: NewsViewModelInputs { return self }
+    public var outputs: NewsViewModelOutputs { return self }
     
     // MARK: - Inputs
     
-    let viewDidLoad: PublishRelay<()>
-    let didTapNews: PublishRelay<News>
+    public let viewDidLoad: PublishRelay<()>
+    public let didTapNews: PublishRelay<News>
     
     // MARK: - Outputs
     
-    var news: Signal<[News]> {
+    public var news: Signal<[News]> {
         return _newsSubject.asSignal(onErrorJustReturn: [])
     }
     private let _newsSubject = PublishSubject<[News]>()
     
     // MARK: - Init
     
-    init(coordinator: Coordinator, interactor: NewsInteractorType) {
+    public init(coordinator: Coordinator, interactor: NewsInteractorType) {
         self.coordinator = coordinator
         self.interactor = interactor
         

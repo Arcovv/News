@@ -1,7 +1,7 @@
 import Moya
 import RealmSwift
 
-protocol NewsInteractorType: AnyObject {
+public protocol NewsInteractorType: AnyObject {
     func fetchNews(completion: @escaping ([News]) -> Void)
 }
 

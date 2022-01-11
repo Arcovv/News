@@ -1,7 +1,7 @@
 import Foundation
 import RealmSwift
 
-final class News: Object {
+public final class News: Object {
     @Persisted(primaryKey: true)
     var url: String
     

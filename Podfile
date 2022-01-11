@@ -9,4 +9,10 @@ target 'News' do
   pod 'Kingfisher', '~> 7.0'
   pod 'SnapKit', '~> 5.0.0'
   pod 'RealmSwift', '~> 10'
+  
+  target 'NewsTests' do
+    inherit! :search_paths
+    pod 'RxBlocking', '~> 6.0.0'
+    pod 'RxTest', '~> 6.0.0'
+  end
 end

@@ -1,7 +1,11 @@
 import Foundation
 
-final class MockNewsInteractor: NewsInteractorType {
-    func fetchNews(completion: @escaping ([News]) -> Void) {
+public final class MockNewsInteractor: NewsInteractorType {
+    public init () {
+        
+    }
+    
+    public func fetchNews(completion: @escaping ([News]) -> Void) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         

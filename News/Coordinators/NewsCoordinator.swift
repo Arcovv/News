@@ -1,19 +1,19 @@
 import class UIKit.UINavigationController
 
-protocol Coordinator: AnyObject {
+public protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get set }
     
     func start()
 }
 
-final class NewsCoordinator: Coordinator {
-    var navigationController: UINavigationController
+public final class NewsCoordinator: Coordinator {
+    public var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
+    public init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
-    func start() {
+    public func start() {
 //        let newsInteractor = MockNewsInteractor()
         let newsInteractor = NewsInteractor()
         let newsViewModel = NewsViewModel(coordinator: self, interactor: newsInteractor)
