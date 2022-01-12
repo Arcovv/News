@@ -2,7 +2,7 @@ import Foundation
 import Moya
 
 enum NewsApi {
-    static let apiKey = "<YOUT_API_KEY>"
+    static let apiKey = "23dc37975aab471a82dc47d2d0f38516"
     
     case topHeadlines(country: String)
 }
