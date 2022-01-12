@@ -83,7 +83,7 @@ extension NewsInteractor: NewsInteractorType {
                 
                 let realm = self.realm
                 let articles = try! self.decoder.decode(ArticlesResult.self, from: response.data).articles
-                let news = articles.map(toNews).sorted { $0.publishedAt > $1.publishedAt }
+                let news = articles.map(toNews)
                 
                 try! realm.write {
                     realm.add(news, update: .modified)
